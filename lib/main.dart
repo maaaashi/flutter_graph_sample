@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_graph_sample/pages/fl_chart.dart';
 import 'package:flutter_graph_sample/pages/graphic.dart';
+import 'package:flutter_graph_sample/pages/syncfusion_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +35,7 @@ class NavigateState extends State<RootPage> {
   final _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
   ];
 
   void _onItemTapped(int index) {
@@ -62,6 +64,12 @@ class NavigateState extends State<RootPage> {
             onGenerateRoute: (settings) =>
                 MaterialPageRoute(builder: (context) => FlChartPage()),
           ),
+          Navigator(
+            key: _navigatorKeys[2],
+            onGenerateRoute: (settings) => MaterialPageRoute(
+              builder: (context) => SyncfusionFlutterChartPage(),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -75,6 +83,10 @@ class NavigateState extends State<RootPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.line_axis),
             label: 'fl_chart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pie_chart),
+            label: 'syncfusion_chart',
           ),
         ],
       ),
