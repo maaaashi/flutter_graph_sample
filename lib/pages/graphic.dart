@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_graph_sample/data.dart';
 import 'package:graphic/graphic.dart';
 
 class GraphicPage extends StatelessWidget {
@@ -21,18 +22,19 @@ class _GraphView extends StatelessWidget {
     return SizedBox(
       height: 400,
       child: Chart(
-        data: [
-          {'genre': 'Sports', 'sold': 275},
-          {'genre': 'Strategy', 'sold': 115},
-          {'genre': 'Action', 'sold': 120},
-          {'genre': 'Shooter', 'sold': 350},
-          {'genre': 'Other', 'sold': 150},
-        ],
+        data: dummySalesData,
         variables: {
-          'genre': Variable(accessor: (Map map) => map['genre'] as String),
-          'sold': Variable(accessor: (Map map) => map['sold'] as num),
+          'month': Variable(
+            accessor: (SalesData data) => data.month,
+            scale: TimeScale(formatter: (d) => "${d.month.toString()}月"),
+          ),
+          'sales': Variable(accessor: (SalesData data) => data.sales),
+          'profitRate': Variable(accessor: (SalesData data) => data.profitRate),
         },
-        marks: [IntervalMark()],
+        marks: [
+          IntervalMark(position: Varset("month") * Varset("sales")),
+          LineMark(position: Varset("month") * Varset("profitRate")),
+        ],
         axes: [Defaults.horizontalAxis, Defaults.verticalAxis],
       ),
     );
